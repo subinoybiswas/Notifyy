@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "925482316416",
+    "project_id": "friend-ly-71ba6",
+    "storage_bucket": "friend-ly-71ba6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925482316416:android:deaa0206399e763289ec65",
+        "android_client_info": {
+          "package_name": "com.anonymous.frnds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925482316416-1bdgaf7qg0iv9vlah9qscnk94vu3he79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE2FqZwm2fZ0BS8y4xLSpgJM2NZSfy5nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925482316416-1bdgaf7qg0iv9vlah9qscnk94vu3he79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
