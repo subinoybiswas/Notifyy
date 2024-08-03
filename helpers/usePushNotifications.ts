@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 export interface PushNotificationState {
     expoPushToken?: Notifications.ExpoPushToken;
     notification?: Notifications.Notification;
+    token?: string;
 }
 
 export const usePushNotifications = (): PushNotificationState => {
@@ -27,7 +28,11 @@ export const usePushNotifications = (): PushNotificationState => {
     const [notification, setNotification] = useState<
         Notifications.Notification | undefined
     >();
-
+    let token;
+    Notifications.getDevicePushTokenAsync().then((d) => {
+        token = d.data;
+        console.log(token);
+    });
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();
 
@@ -93,5 +98,6 @@ export const usePushNotifications = (): PushNotificationState => {
     return {
         expoPushToken,
         notification,
+        token,
     };
 };
