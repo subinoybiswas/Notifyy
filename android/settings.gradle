@@ -1,4 +1,4 @@
-rootProject.name = 'frnds'
+rootProject.name = 'Notifyy'
 
 dependencyResolutionManagement {
   versionCatalogs {
