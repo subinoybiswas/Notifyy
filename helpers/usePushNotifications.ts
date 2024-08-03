@@ -24,15 +24,12 @@ export const usePushNotifications = (): PushNotificationState => {
     const [expoPushToken, setExpoPushToken] = useState<
         Notifications.ExpoPushToken | undefined
     >();
-
+    const [myToken, setToken] = useState<string | undefined>();
     const [notification, setNotification] = useState<
         Notifications.Notification | undefined
     >();
-    let token;
-    Notifications.getDevicePushTokenAsync().then((d) => {
-        token = d.data;
-        console.log(token);
-    });
+
+
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();
 
@@ -75,7 +72,10 @@ export const usePushNotifications = (): PushNotificationState => {
         registerForPushNotificationsAsync().then((token) => {
             setExpoPushToken(token);
         });
-
+        Notifications.getDevicePushTokenAsync().then((d) => {
+            setToken(d.data);
+            // console.log(token);
+        });
         notificationListener.current =
             Notifications.addNotificationReceivedListener((notification) => {
                 setNotification(notification);
@@ -98,6 +98,6 @@ export const usePushNotifications = (): PushNotificationState => {
     return {
         expoPushToken,
         notification,
-        token,
+        token: myToken,
     };
 };
