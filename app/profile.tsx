@@ -1,9 +1,10 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Divider, Tab, TabView } from '@rneui/themed';
 const Profile = () => {
     const [index, setIndex] = React.useState(0);
+    const oldNortification = ["hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?"]
     return (
         <SafeAreaView className="bg-primary h-full ">
             <View className='mb-5'>
@@ -34,16 +35,30 @@ const Profile = () => {
 
                 />
                 <Tab.Item
-                    title="favorite"
+                    title="About"
                     titleStyle={{ fontSize: 12, color: 'white' }}
 
                 />
 
             </Tab>
-            <Divider />
+            <View className='mt-4'></View>
             <TabView value={index} onChange={setIndex} animationType="spring">
-                <TabView.Item className='bg-primary'>
-                    <Text >Recent</Text>
+                <TabView.Item style={{ width: '100%' }}>
+                    <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+                        <View className='flex-1 bg-transparent mt-5 flex flex-col gap-2 p-2 w-full justify-center items-center'>
+
+                            {oldNortification.map((item, index) => {
+                                return (
+                                    <View className='flex flex-col gap-2  bg-transparent border-0.5 border-slate-600 rounded-xl w-full p-1 min-h-[100px]'>
+                                        <Text className='text-white text-lg font-psemibold'>Mere Babu ne khana khaya?</Text>
+                                        <Text className='text-gray-100 text-sm font-pmedium'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium aut repellat, minima laborum doloribus voluptas? Velit possimus nobis repellat impedit ut natus dicta adipisci perspiciatis molestiae repudiandae, mollitia odit incidunt!</Text>
+                                    </View>
+                                )
+                            })}
+                        </View>
+
+
+                    </ScrollView>
                 </TabView.Item>
                 <TabView.Item className='bg-primary'>
 
