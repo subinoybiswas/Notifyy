@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import React from 'react';
 import { useColorScheme } from '@/hooks/useColorScheme';
-
+import { AppProvider } from '@/contexts/ApplicationContext';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -36,6 +36,8 @@ export default function RootLayout() {
 
   return (
     // <ThemeProvider>
+    <AppProvider>
+
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
@@ -43,6 +45,7 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
 
       </Stack>
+    </AppProvider>
     // </ThemeProvider>
   );
 }
