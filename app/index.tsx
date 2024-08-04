@@ -91,72 +91,72 @@ export default function App() {
   }
   const SpotifyObj = {
     "album": {
-      "album_type": "single",
+      "album_type": "album",
       "artists": [{
         "external_urls": {
-          "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
+          "spotify": "https://open.spotify.com/artist/6Ff53KvcvAj5U7Z1vojB5o"
         },
-        "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-        "id": "6sFIWsNpZYqfjUpaCgueju",
-        "name": "Carly Rae Jepsen",
+        "href": "https://api.spotify.com/v1/artists/6Ff53KvcvAj5U7Z1vojB5o",
+        "id": "6Ff53KvcvAj5U7Z1vojB5o",
+        "name": "*NSYNC",
         "type": "artist",
-        "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
+        "uri": "spotify:artist:6Ff53KvcvAj5U7Z1vojB5o"
       }],
-      "available_markets": [],
+      "available_markets": ["AR", "AU", "AT", "BE", "BO", "BR", "BG", "CA", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "DE", "EC", "EE", "SV", "FI", "FR", "GR", "GT", "HN", "HK", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MY", "MT", "MX", "NL", "NZ", "NI", "NO", "PA", "PY", "PE", "PH", "PL", "PT", "SG", "SK", "ES", "SE", "CH", "TW", "TR", "UY", "US", "GB", "AD", "LI", "MC", "ID", "JP", "TH", "VN", "RO", "IL", "ZA", "SA", "AE", "BH", "QA", "OM", "KW", "EG", "MA", "DZ", "TN", "LB", "JO", "PS", "IN", "BY", "KZ", "MD", "UA", "AL", "BA", "HR", "ME", "MK", "RS", "SI", "BD", "PK", "LK", "GH", "KE", "NG", "TZ", "UG", "AG", "AM", "BS", "BB", "BZ", "BT", "BW", "BF", "CV", "CW", "DM", "FJ", "GM", "GE", "GD", "GW", "GY", "HT", "JM", "KI", "LS", "LR", "MW", "MV", "ML", "MH", "FM", "NA", "NR", "NE", "PW", "PG", "PR", "WS", "SM", "ST", "SN", "SC", "SL", "SB", "KN", "LC", "VC", "SR", "TL", "TO", "TT", "TV", "VU", "AZ", "BN", "BI", "KH", "CM", "TD", "KM", "GQ", "SZ", "GA", "GN", "KG", "LA", "MO", "MR", "MN", "NP", "RW", "TG", "UZ", "ZW", "BJ", "MG", "MU", "MZ", "AO", "CI", "DJ", "ZM", "CD", "CG", "IQ", "LY", "TJ", "VE", "ET", "XK"],
       "external_urls": {
-        "spotify": "https://open.spotify.com/album/0tGPJ0bkWOUmH7MEOR77qc"
+        "spotify": "https://open.spotify.com/album/20RMokVwJ2wjQ0s8FOdOFC"
       },
-      "href": "https://api.spotify.com/v1/albums/0tGPJ0bkWOUmH7MEOR77qc",
-      "id": "0tGPJ0bkWOUmH7MEOR77qc",
+      "href": "https://api.spotify.com/v1/albums/20RMokVwJ2wjQ0s8FOdOFC",
+      "id": "20RMokVwJ2wjQ0s8FOdOFC",
       "images": [{
         "height": 640,
-        "url": "https://i.scdn.co/image/ab67616d0000b2737359994525d219f64872d3b1",
+        "url": "https://i.scdn.co/image/ab67616d0000b273a6cb8fab778e1efc406a5909",
         "width": 640
       }, {
         "height": 300,
-        "url": "https://i.scdn.co/image/ab67616d00001e027359994525d219f64872d3b1",
+        "url": "https://i.scdn.co/image/ab67616d00001e02a6cb8fab778e1efc406a5909",
         "width": 300
       }, {
         "height": 64,
-        "url": "https://i.scdn.co/image/ab67616d000048517359994525d219f64872d3b1",
+        "url": "https://i.scdn.co/image/ab67616d00004851a6cb8fab778e1efc406a5909",
         "width": 64
       }],
-      "name": "Cut To The Feeling",
-      "release_date": "2017-05-26",
+      "name": "No Strings Attached",
+      "release_date": "2000-03-21",
       "release_date_precision": "day",
-      "total_tracks": 1,
+      "total_tracks": 12,
       "type": "album",
-      "uri": "spotify:album:0tGPJ0bkWOUmH7MEOR77qc"
+      "uri": "spotify:album:20RMokVwJ2wjQ0s8FOdOFC"
     },
     "artists": [{
       "external_urls": {
-        "spotify": "https://open.spotify.com/artist/6sFIWsNpZYqfjUpaCgueju"
+        "spotify": "https://open.spotify.com/artist/6Ff53KvcvAj5U7Z1vojB5o"
       },
-      "href": "https://api.spotify.com/v1/artists/6sFIWsNpZYqfjUpaCgueju",
-      "id": "6sFIWsNpZYqfjUpaCgueju",
-      "name": "Carly Rae Jepsen",
+      "href": "https://api.spotify.com/v1/artists/6Ff53KvcvAj5U7Z1vojB5o",
+      "id": "6Ff53KvcvAj5U7Z1vojB5o",
+      "name": "*NSYNC",
       "type": "artist",
-      "uri": "spotify:artist:6sFIWsNpZYqfjUpaCgueju"
+      "uri": "spotify:artist:6Ff53KvcvAj5U7Z1vojB5o"
     }],
-    "available_markets": [],
+    "available_markets": ["AR", "AU", "AT", "BE", "BO", "BR", "BG", "CA", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "DE", "EC", "EE", "SV", "FI", "FR", "GR", "GT", "HN", "HK", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MY", "MT", "MX", "NL", "NZ", "NI", "NO", "PA", "PY", "PE", "PH", "PL", "PT", "SG", "SK", "ES", "SE", "CH", "TW", "TR", "UY", "US", "GB", "AD", "LI", "MC", "ID", "JP", "TH", "VN", "RO", "IL", "ZA", "SA", "AE", "BH", "QA", "OM", "KW", "EG", "MA", "DZ", "TN", "LB", "JO", "PS", "IN", "BY", "KZ", "MD", "UA", "AL", "BA", "HR", "ME", "MK", "RS", "SI", "BD", "PK", "LK", "GH", "KE", "NG", "TZ", "UG", "AG", "AM", "BS", "BB", "BZ", "BT", "BW", "BF", "CV", "CW", "DM", "FJ", "GM", "GE", "GD", "GW", "GY", "HT", "JM", "KI", "LS", "LR", "MW", "MV", "ML", "MH", "FM", "NA", "NR", "NE", "PW", "PG", "PR", "WS", "SM", "ST", "SN", "SC", "SL", "SB", "KN", "LC", "VC", "SR", "TL", "TO", "TT", "TV", "VU", "AZ", "BN", "BI", "KH", "CM", "TD", "KM", "GQ", "SZ", "GA", "GN", "KG", "LA", "MO", "MR", "MN", "NP", "RW", "TG", "UZ", "ZW", "BJ", "MG", "MU", "MZ", "AO", "CI", "DJ", "ZM", "CD", "CG", "IQ", "LY", "TJ", "VE", "ET", "XK"],
     "disc_number": 1,
-    "duration_ms": 207959,
+    "duration_ms": 200400,
     "explicit": false,
     "external_ids": {
-      "isrc": "USUM71703861"
+      "isrc": "USJI10000001"
     },
     "external_urls": {
-      "spotify": "https://open.spotify.com/track/11dFghVXANMlKmJXsNCbNl"
+      "spotify": "https://open.spotify.com/track/62bOmKYxYg7dhrC6gH9vFn"
     },
-    "href": "https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",
-    "id": "11dFghVXANMlKmJXsNCbNl",
+    "href": "https://api.spotify.com/v1/tracks/62bOmKYxYg7dhrC6gH9vFn",
+    "id": "62bOmKYxYg7dhrC6gH9vFn",
     "is_local": false,
-    "name": "Cut To The Feeling",
-    "popularity": 0,
-    "preview_url": null,
+    "name": "Bye Bye Bye - From Deadpool and Wolverine Soundtrack",
+    "popularity": 83,
+    "preview_url": "https://p.scdn.co/mp3-preview/161d6b8cfeb94609aee323195a6452cdb90181ca?cid=56128f89bda94868b37744bdc859076c",
     "track_number": 1,
     "type": "track",
-    "uri": "spotify:track:11dFghVXANMlKmJXsNCbNl"
+    "uri": "spotify:track:62bOmKYxYg7dhrC6gH9vFn"
   }
   return (
     <SafeAreaView className="bg-primary h-full ">
@@ -187,6 +187,13 @@ export default function App() {
                     setSurprises((prev) => { return !prev });
                     Haptics.impactAsync();
                   }}>
+                    {
+                      surprises && <View className="absolute right-1 top-0">
+                        <Ionicons name="checkmark-circle" size={30} color="rgb(74 222 128 )" />
+                      </View>
+                    }
+
+
                     <Image source={require("@/assets/images/gift.png")} resizeMode="cover" className="h-20 w-20" />
                     <Text className="font-psemibold text-2xl text-white">Surprises</Text>
 
