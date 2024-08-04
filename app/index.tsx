@@ -229,7 +229,7 @@ export default function App() {
 
                     <Image source={{ uri: SpotifyObj.album.images[0].url }} resizeMode="cover" className="h-20 w-20 m-4 rounded-lg" />
                     <View>
-                      <Text className="font-psemibold text-2xl text-white">{truncate(SpotifyObj.album.name, 12)}</Text>
+                      <Text className="font-psemibold text-2xl text-white">{truncate(SpotifyObj.name, 12)}</Text>
                       <Text className="font-psemibold text-lg text-gray-100">{truncate(SpotifyObj.artists[0].name, 17)}</Text>
                     </View>
                   </TouchableOpacity>

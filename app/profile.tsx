@@ -64,7 +64,7 @@ const Profile = () => {
 
                             {oldNortification.map((item, index) => {
                                 return (
-                                    <View className='flex flex-col gap-2  bg-transparent border-0.5 border-slate-600 rounded-xl w-full p-1 min-h-[100px]'>
+                                    <View className='flex flex-col gap-2  bg-transparent border-0.5 border-slate-600 rounded-xl w-full p-1 min-h-[100px]' key={index}>
                                         <Text className='text-white text-lg font-psemibold'>Mere Babu ne khana khaya?</Text>
                                         <Text className='text-gray-100 text-sm font-pmedium'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium aut repellat, minima laborum doloribus voluptas? Velit possimus nobis repellat impedit ut natus dicta adipisci perspiciatis molestiae repudiandae, mollitia odit incidunt!</Text>
                                     </View>
