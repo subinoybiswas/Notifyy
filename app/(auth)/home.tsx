@@ -16,7 +16,7 @@ export default function App() {
 
   const { isSignedIn } = useAuth()
 
-  const { expoPushToken, notification, token, setModalVisible2, } = useApp();
+  const { expoPushToken, notification, token, status } = useApp();
 
 
   useEffect(() => {
@@ -67,6 +67,17 @@ export default function App() {
           <View className="flex-1 rounded-xl m-2 mt-7">
             <View className="flex-1 rounded-xl items-center ">
               <View className="w-[100%]">
+
+                {status !== "granted" && (
+                  <TouchableOpacity className="bg-red-600/50 p-5 rounded-lg mb-2" onPress={() => {
+                    Linking.openSettings()
+                  }}>
+
+                    <Text className="font-pbold text-xl text-white">Please allow nortifications</Text>
+                  </TouchableOpacity>
+
+                )
+                }
 
                 <View className="flex flex-col gap-2">
                   <Text className="text-gray-100 text-xl px-2 font-pbold pb-2">Configure</Text>

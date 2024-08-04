@@ -10,7 +10,7 @@ export interface PushNotificationState {
     expoPushToken?: Notifications.ExpoPushToken;
     notification?: Notifications.Notification;
     token?: string;
-    status?: string;
+    status?: Notifications.PermissionStatus;
 }
 
 export const usePushNotifications = (): PushNotificationState => {
@@ -29,7 +29,7 @@ export const usePushNotifications = (): PushNotificationState => {
     const [notification, setNotification] = useState<
         Notifications.Notification | undefined
     >();
-    const [status, setStatus] = useState<string | undefined>();
+    const [status, setStatus] = useState<Notifications.PermissionStatus>();
 
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();

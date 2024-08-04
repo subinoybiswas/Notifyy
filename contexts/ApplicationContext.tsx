@@ -23,6 +23,8 @@ interface AppContextProps {
     setUser: React.Dispatch<React.SetStateAction<any | null>>;
     isLogged: boolean;
     setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
+    status?: Notifications.PermissionStatus;
+
 }
 
 // Create the context with a default value 
@@ -30,7 +32,7 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 
 // Create a provider component
 const AppProvider = ({ children }: { children: ReactNode }) => {
-    const { expoPushToken, notification, token } = usePushNotifications();
+    const { expoPushToken, notification, token, status } = usePushNotifications();
     const [surprises, setSurprises] = React.useState(false);
     const [modalVisible, setModalVisible] = React.useState(false);
     const [modalVisible2, setModalVisible2] = React.useState(false);
@@ -115,7 +117,7 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
             setModalVisible, modalVisible2, setModalVisible2,
             alarmString, setAlarmString, fact, setFact, expoPushToken,
             notification, token, spotifyObj, setSpotifyObj, user, setUser,
-            isLogged, setIsLogged
+            isLogged, setIsLogged, status
         }}>
             {children}
         </AppContext.Provider>
