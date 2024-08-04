@@ -10,6 +10,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useUser, useAuth } from '@clerk/clerk-expo';
 import { truncate } from '@/helpers/truncate';
 import { calculateUserAge } from '@/helpers/calculateUserAge';
+import { handlePress } from '@/helpers/handlePress';
 const Profile = () => {
     const [index, setIndex] = React.useState(0);
     const oldNortification = ["hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?"]
@@ -95,7 +96,7 @@ const Profile = () => {
                         <View className='bg-primary/80 border-0.5 border-slate-600 flex-1 min-w-[100%] flex flex-col items-start rounded-xl'>
                             <Text className='text-gray-100 text-lg font-psemibold p-2'>Developer</Text>
                             <View className='flex flex-row mb-4 items-center'>
-                                <Image source={require("@/assets/images/cards.png")} className='h-[100px] w-[100px] bg-gray-200 rounded-full ml-3 mr-3 border-2 border-slate-600' resizeMode="cover" />
+                                <Image source={require("@/assets/images/developer.png")} className='h-[100px] w-[100px] bg-gray-200 rounded-full ml-3 mr-3 border-2 border-slate-600' resizeMode="cover" />
                                 <View className='flex flex-col'>
                                     <View className='flex flex-row items-center gap-1'>
                                         <Text className='text-gray-100 text-xl font-psemibold pl-2'>Subinoy Biswas</Text>
@@ -103,9 +104,9 @@ const Profile = () => {
                                     </View>
                                     <Text className='text-gray-100 text-sm font-pregular px-2'>Full Stack Developer</Text>
                                     <View className='flex flex-row justify-between pl-2 pt-2 items-center w-[60%]'>
-                                        <AntDesign name="github" size={28} color="white" />
-                                        <AntDesign name="twitter" size={28} color="white" />
-                                        <AntDesign name="linkedin-square" size={28} color="white" />
+                                        <AntDesign name="github" size={28} color="white" onPress={() => handlePress("https://github.com/subinoybiswas")} />
+                                        <AntDesign name="twitter" size={28} color="white" onPress={() => handlePress("https://x.com/heysubinoy")} />
+                                        <AntDesign name="linkedin-square" size={28} color="white" onPress={() => handlePress("https://www.linkedin.com/in/heysubinoy")} />
                                     </View>
                                 </View>
                             </View>
