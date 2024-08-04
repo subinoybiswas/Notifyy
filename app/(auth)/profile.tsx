@@ -9,6 +9,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useUser, useAuth } from '@clerk/clerk-expo';
 import { truncate } from '@/helpers/truncate';
+import { calculateUserAge } from '@/helpers/calculateUserAge';
 const Profile = () => {
     const [index, setIndex] = React.useState(0);
     const oldNortification = ["hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?"]
@@ -44,7 +45,7 @@ const Profile = () => {
                         <Text className='text-gray-100 text-2xl font-psemibold'>{user?.firstName}</Text>
                         <View className='flex flex-col gap-1 '>
                             <View className='self-start'>
-                                <Text className='text-gray-100 bg-green-400/40 px-2 text-sm font-pmedium rounded-lg'>{user?.updatedAt?.toLocaleTimeString()}</Text>
+                                <Text className='text-gray-100 bg-green-400/40 px-2 text-sm font-pmedium rounded-lg'>{calculateUserAge(user?.createdAt as Date)} months</Text>
                             </View>
                         </View>
                         <Text className='text-gray-200 text-sm font-pmedium rounded-lg mt-1'>{truncate(user?.emailAddresses[0]?.toString() as string, 22)}</Text>

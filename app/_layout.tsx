@@ -1,13 +1,13 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import React from 'react';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { AppProvider } from '@/contexts/ApplicationContext';
-import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
+import { ClerkLoaded, ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import * as SecureStore from "expo-secure-store";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -63,15 +63,9 @@ export default function RootLayout() {
       tokenCache={tokenCache}
     >
       <AppProvider>
-
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          <Stack.Screen name="profile" options={{ headerShown: false }} />
-
-          <Stack.Screen name="+not-found" />
-
-        </Stack>
+        <ClerkLoaded>
+          <Slot />
+        </ClerkLoaded>
       </AppProvider>
     </ClerkProvider>
     // </ThemeProvider>

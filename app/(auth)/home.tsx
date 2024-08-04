@@ -11,7 +11,7 @@ import ConfigureSection from "@/components/IndexPage/Configure";
 import FeaturedGrid from "@/components/IndexPage/FeaturedGrid";
 import FeaturedMusic from "@/components/IndexPage/FeaturedMusic";
 import { Redirect, router } from "expo-router";
-import { useAuth } from "@clerk/clerk-expo";
+import { SignedIn, SignedOut, useAuth } from "@clerk/clerk-expo";
 export default function App() {
 
   const { isSignedIn } = useAuth()
@@ -59,32 +59,38 @@ export default function App() {
 
   return (
     <SafeAreaView className="bg-primary h-full ">
-      <ImageBackground source={require("@/assets/images/grid-bg.png")} resizeMode="cover" className="flex-1" imageStyle={{ borderRadius: 16 }} >
+      <SignedIn>
 
-        <Header />
-        <View className="flex-1 rounded-xl m-2 mt-7">
-          <View className="flex-1 rounded-xl items-center ">
-            <View className="w-[100%]">
+        <ImageBackground source={require("@/assets/images/grid-bg.png")} resizeMode="cover" className="flex-1" imageStyle={{ borderRadius: 16 }} >
 
-              <View className="flex flex-col gap-2">
-                <Text className="text-gray-100 text-xl px-2 font-pbold pb-2">Configure</Text>
-                <ConfigureSection />
+          <Header />
+          <View className="flex-1 rounded-xl m-2 mt-7">
+            <View className="flex-1 rounded-xl items-center ">
+              <View className="w-[100%]">
 
-                <Text className="text-gray-100 text-xl px-2 font-pbold pt-5 pb-2" >Featured</Text>
-                <FeaturedGrid />
-                <FeaturedMusic />
+                <View className="flex flex-col gap-2">
+                  <Text className="text-gray-100 text-xl px-2 font-pbold pb-2">Configure</Text>
+                  <ConfigureSection />
 
-                <View className="flex-1 flex-row flex gap-x-2 min-h-[150px] mx-2 items-center">
-                  <FactModal />
-                  <TimeModal />
+                  <Text className="text-gray-100 text-xl px-2 font-pbold pt-5 pb-2" >Featured</Text>
+                  <FeaturedGrid />
+                  <FeaturedMusic />
+
+                  <View className="flex-1 flex-row flex gap-x-2 min-h-[150px] mx-2 items-center">
+                    <FactModal />
+                    <TimeModal />
+                  </View>
+
                 </View>
 
               </View>
-
             </View>
           </View>
-        </View>
-      </ImageBackground>
+        </ImageBackground>
+      </SignedIn>
+      <SignedOut>
+        <Redirect href="/" />
+      </SignedOut>
     </SafeAreaView >
   );
 }
