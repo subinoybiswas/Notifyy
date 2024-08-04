@@ -19,6 +19,10 @@ interface AppContextProps {
     token?: string;
     spotifyObj: any | null;
     setSpotifyObj: React.Dispatch<React.SetStateAction<any | null>>;
+    user: any | null;
+    setUser: React.Dispatch<React.SetStateAction<any | null>>;
+    isLogged: boolean;
+    setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Create the context with a default value 
@@ -103,10 +107,15 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
         "type": "track",
         "uri": "spotify:track:62bOmKYxYg7dhrC6gH9vFn"
     });
+    const [user, setUser] = React.useState<any | null>(null);
+    const [isLogged, setIsLogged] = React.useState<boolean>(false);
     return (
         <AppContext.Provider value={{
             surprises, setSurprises, modalVisible,
-            setModalVisible, modalVisible2, setModalVisible2, alarmString, setAlarmString, fact, setFact, expoPushToken, notification, token, spotifyObj, setSpotifyObj
+            setModalVisible, modalVisible2, setModalVisible2,
+            alarmString, setAlarmString, fact, setFact, expoPushToken,
+            notification, token, spotifyObj, setSpotifyObj, user, setUser,
+            isLogged, setIsLogged
         }}>
             {children}
         </AppContext.Provider>

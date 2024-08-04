@@ -48,9 +48,12 @@
         {
           "icon": "./assets/images/icon.png",
           "color": "#000000",
-          "sounds": ["./assets/sounds/bell.wav"]
+          "sounds": [
+            "./assets/sounds/bell.wav"
+          ]
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

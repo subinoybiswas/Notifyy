@@ -7,14 +7,21 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useUser, useAuth } from '@clerk/clerk-expo';
+import { truncate } from '@/helpers/truncate';
 const Profile = () => {
     const [index, setIndex] = React.useState(0);
     const oldNortification = ["hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?"]
     const [rating, setRating] = React.useState(0);
-
+    const { user } = useUser()
+    const { signOut, isSignedIn } = useAuth()
     const handleRating = (rating: number) => {
         setRating(rating);
     };
+    if (!isSignedIn) {
+        router.replace('/onboarding')
+    }
+
     return (
         <SafeAreaView className="bg-primary h-full ">
             <View className='mb-5'>
@@ -22,18 +29,25 @@ const Profile = () => {
                     <Ionicons name="arrow-back" size={24} color="white" onPress={() => {
                         router.back()
                     }} />
-                    <Text className='text-start text-xl font-bold p-5 text-gray-100 font-psemibold'>Profile</Text>
+                    <View className='flex-1 flex-row flex justify-between'>
+
+                        <Text className='text-start text-xl font-bold p-5 text-gray-100 font-psemibold'>Profile</Text>
+                        <Text className='text-end text-xl font-bold p-5 text-red-600 font-psemibold' onPress={() => { signOut(); router.replace("/onboarding") }}>
+                            Logout
+                        </Text>
+                    </View>
+
                 </View>
                 <View className='flex  flex-row items-center justify-start mt-5'>
-                    <Image source={require("@/assets/images/cards.png")} className='h-[100px] w-[100px] bg-gray-200 rounded-3xl ml-3 mr-3 border-2 border-slate-600' resizeMode="cover" />
+                    <Image source={{ uri: user?.imageUrl }} className='h-[100px] w-[100px] bg-gray-200 rounded-3xl ml-3 mr-3 border-2 border-slate-600' resizeMode="cover" />
                     <View className='flex flex-col justify-start '>
-                        <Text className='text-gray-100 text-2xl font-psemibold'>Subinoy</Text>
+                        <Text className='text-gray-100 text-2xl font-psemibold'>{user?.firstName}</Text>
                         <View className='flex flex-col gap-1 '>
                             <View className='self-start'>
-                                <Text className='text-gray-100 bg-green-400/40 px-2 text-sm font-pmedium rounded-lg'>0 months</Text>
+                                <Text className='text-gray-100 bg-green-400/40 px-2 text-sm font-pmedium rounded-lg'>{user?.updatedAt?.toLocaleTimeString()}</Text>
                             </View>
                         </View>
-                        <Text className='text-gray-200 text-sm font-pmedium rounded-lg mt-1'>heysubinoy@gmail.com</Text>
+                        <Text className='text-gray-200 text-sm font-pmedium rounded-lg mt-1'>{truncate(user?.emailAddresses[0]?.toString() as string, 22)}</Text>
                     </View>
                 </View>
             </View>

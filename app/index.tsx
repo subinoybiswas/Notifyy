@@ -3,15 +3,20 @@ import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useApp } from "@/contexts/ApplicationContext";
-import FactModal from "@/components/FactModal";
-import TimeModal from "@/components/TimeModal";
-import Header from "@/components/Header";
-import ConfigureSection from "@/components/Configure";
+import FactModal from "@/components/IndexPage/FactModal";
+import TimeModal from "@/components/IndexPage/TimeModal";
+import Header from "@/components/IndexPage/Header";
+import ConfigureSection from "@/components/IndexPage/Configure";
 
-import FeaturedGrid from "@/components/FeaturedGrid";
-import FeaturedMusic from "@/components/FeaturedMusic";
+import FeaturedGrid from "@/components/IndexPage/FeaturedGrid";
+import FeaturedMusic from "@/components/IndexPage/FeaturedMusic";
+import { Redirect, router } from "expo-router";
+import { useAuth } from "@clerk/clerk-expo";
 export default function App() {
-  const { spotifyObj, fact, expoPushToken, notification, token, setModalVisible2, } = useApp();
+
+  const { isSignedIn } = useAuth()
+
+  const { expoPushToken, notification, token, setModalVisible2, } = useApp();
 
 
   useEffect(() => {
@@ -50,7 +55,7 @@ export default function App() {
   //     })
   // }, []);
 
-
+  console.log(isSignedIn)
 
   return (
     <SafeAreaView className="bg-primary h-full ">
@@ -75,7 +80,7 @@ export default function App() {
                 </View>
 
               </View>
-            
+
             </View>
           </View>
         </View>
