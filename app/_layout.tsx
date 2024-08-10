@@ -62,11 +62,11 @@ export default function RootLayout() {
       publishableKey={CLERK_PUBLISHABLE_KEY}
       tokenCache={tokenCache}
     >
-      <AppProvider>
-        <ClerkLoaded>
+      <ClerkLoaded>
+        <AppProvider>
           <Slot />
-        </ClerkLoaded>
-      </AppProvider>
+        </AppProvider>
+      </ClerkLoaded>
     </ClerkProvider>
     // </ThemeProvider>
   );

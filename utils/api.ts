@@ -1,0 +1,1 @@
+export const ApiUrl = process.env.EXPO_PUBLIC_API_URL

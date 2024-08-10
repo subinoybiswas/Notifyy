@@ -6,7 +6,8 @@ import { useApp } from '@/contexts/ApplicationContext';
 import { handlePress } from "@/helpers/handlePress";
 
 const FeaturedGrid = () => {
-    const { setModalVisible2, fact } = useApp();
+    const { setModalVisible2, fact, article } = useApp();
+    if (!fact || !article) return null;
     return (
         <View className="flex-row flex gap-x-2 min-h-[150px] mx-2 items-center">
             <TouchableOpacity className=" rounded-xl bg-secondary-100/80 w-[40%] h-[100%]" onPress={() => {
@@ -19,12 +20,12 @@ const FeaturedGrid = () => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity className="flex-1 rounded-xl bg-[#F67E7D]/90 h-[100%]" onPress={() => {
-                handlePress("https://www.google.com");
+                handlePress(article?.link as string);
             }}>
                 <Text className="absolute right-1 top-2 font-pbold bg-[#D92027] p-2 text-sm rounded-full px-3" >Article</Text>
 
                 <Image source={require("@/assets/images/article.png")} resizeMode="cover" className="h-20 w-20" />
-                <Text className="p-2 pl-4 font-pmedium">{truncate("5 amazing new JavaScript features in ES15 (2024)", 35)}</Text>
+                <Text className="p-2 pl-4 font-pmedium">{truncate(article?.heading as string, 35)}</Text>
             </TouchableOpacity>
         </View>
     )

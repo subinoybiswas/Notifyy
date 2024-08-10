@@ -1,5 +1,5 @@
 import { Text, View, ImageBackground, Image, TouchableOpacity, Linking } from "react-native";
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useApp } from "@/contexts/ApplicationContext";
@@ -11,11 +11,12 @@ import ConfigureSection from "@/components/IndexPage/Configure";
 import FeaturedGrid from "@/components/IndexPage/FeaturedGrid";
 import FeaturedMusic from "@/components/IndexPage/FeaturedMusic";
 import { Redirect, router } from "expo-router";
-import { SignedIn, SignedOut, useAuth } from "@clerk/clerk-expo";
+import { SignedIn, SignedOut, useAuth, useUser } from "@clerk/clerk-expo";
+import { ApiUrl } from "@/utils/api";
 export default function App() {
 
-  const { isSignedIn } = useAuth()
-
+  const { isSignedIn, userId } = useAuth()
+  const { user } = useUser()
   const { expoPushToken, notification, token, status } = useApp();
 
 
@@ -38,6 +39,36 @@ export default function App() {
     console.log("notification", notification);
   }, [expoPushToken, notification]);
 
+
+  useEffect(() => {
+    const updateUser = async () => {
+      try {
+        // console.log("user", user)
+        const response = await fetch(`${ApiUrl}/update`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: userId,
+            username: user?.username,
+            first_name: user?.firstName,
+            last_name: user?.lastName,
+            profile_image_url: user?.imageUrl,
+            email_address: user?.emailAddresses[0].emailAddress,
+            fcm_id: token
+          }),
+        });
+        console.log("response", response.status);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
+    if (isSignedIn) {
+      updateUser()
+    }
+  }, [user, token]);
   // useEffect(() => {
   //   const apiKey = "f3n2TnzyfYX0+4CJXuahVg==VFkdDXIZ3CLR2Ihz"; // Replace with your actual API key
   //   const headers = {
@@ -54,6 +85,8 @@ export default function App() {
 
   //     })
   // }, []);
+
+  useEffect(() => { }, [status]);
 
   console.log(isSignedIn)
 

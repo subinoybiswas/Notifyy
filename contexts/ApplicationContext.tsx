@@ -1,17 +1,26 @@
 import { usePushNotifications } from '@/hooks/usePushNotifications';
-import React, { createContext, useState, ReactNode, useContext } from 'react';
-import * as Notifications from "expo-notifications";
+import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
+import * as Notifications from 'expo-notifications';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ApiUrl } from '@/utils/api';
+import { useAuth } from '@clerk/clerk-expo';
 
-// Define the shape of the AuthContext
-interface AppContextProps {
+interface Article {
+    heading: string;
+    link: string;
+}
+
+interface Configure {
+    alarm: string;
     surprises: boolean;
-    setSurprises: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface AppContextProps {
+    // surprises: boolean;
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     modalVisible2: boolean;
     setModalVisible2: React.Dispatch<React.SetStateAction<boolean>>;
-    alarmString: string | null;
-    setAlarmString: React.Dispatch<React.SetStateAction<string | null>>;
     fact: string | null;
     setFact: React.Dispatch<React.SetStateAction<string | null>>;
     expoPushToken?: Notifications.ExpoPushToken;
@@ -24,22 +33,18 @@ interface AppContextProps {
     isLogged: boolean;
     setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
     status?: Notifications.PermissionStatus;
-
+    article: Article | null;
+    configure: Configure;
+    setConfigure: React.Dispatch<React.SetStateAction<Configure>>;
 }
 
-// Create the context with a default value 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
 
-// Create a provider component
 const AppProvider = ({ children }: { children: ReactNode }) => {
     const { expoPushToken, notification, token, status } = usePushNotifications();
-    const [surprises, setSurprises] = React.useState(false);
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const [modalVisible2, setModalVisible2] = React.useState(false);
-    const [alarmString, setAlarmString] = React.useState<
-        string | null
-    >("19:00:00");
-    const [fact, setFact] = React.useState<string | null>("A can of Pepsi has 41 grams of sugar. This amount to about seven teaspoons of sugar.");
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [fact, setFact] = useState<string | null>(null);
     const [spotifyObj, setSpotifyObj] = React.useState<any | null>({
         "album": {
             "album_type": "album",
@@ -109,22 +114,133 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
         "type": "track",
         "uri": "spotify:track:62bOmKYxYg7dhrC6gH9vFn"
     });
-    const [user, setUser] = React.useState<any | null>(null);
-    const [isLogged, setIsLogged] = React.useState<boolean>(false);
+    const [user, setUser] = useState<any | null>(null);
+    const [isLogged, setIsLogged] = useState<boolean>(false);
+    const [article, setArticle] = useState<Article | null>(null);
+    const [configure, setConfigure] = useState<Configure>({
+        alarm: "19:00:00",
+        surprises: false
+    });
+    const { userId } = useAuth();
+
+    useEffect(() => {
+        const fetchConfig = async () => {
+            try {
+                const storedConfig = await AsyncStorage.getItem('configure');
+                if (storedConfig) {
+                    setConfigure(JSON.parse(storedConfig));
+                }
+                else {
+                    const res = await fetch(`${ApiUrl}/configuration`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            id: userId,
+
+                        }),
+                    })
+                    const data = await res.json();
+                    console.log('Fetched config:', data); // Debugging log
+                    await AsyncStorage.setItem('configure', JSON.stringify({
+                        alarm: data.alarm,
+                        surprises: data.surprises
+                    }));
+                    setConfigure({
+                        alarm: data.alarm,
+                        surprises: data.surprises
+                    });
+                }
+            } catch (error: any) {
+                console.error('Error fetching config:', error);
+            }
+        };
+
+        fetchConfig();
+
+    }, []);
+
+    // useEffect(() => {
+    //     const saveConfig = async () => {
+    //         try {
+    //             const response = await fetch(`${ApiUrl}/configuration`, {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     id: token,
+    //                     alarm: configure.alarm,
+    //                     surprise: configure.surprises,
+    //                 }),
+    //             });
+    //             console.log('Response:', response.status); // Debugging log
+    //             await AsyncStorage.setItem('configure', JSON.stringify(configure));
+    //         } catch (error: any) {
+    //             console.error('Error saving config:', error);
+    //         }
+    //     };
+    //     saveConfig();
+    // }, [configure]);
+
+    useEffect(() => {
+        const fetchDetails = async () => {
+            try {
+                const res = await fetch(`${ApiUrl}/details`, {
+                    method: 'GET',
+                });
+                console.log('Response:', res.status); // Debugging log
+                if (!res.ok) {
+                    throw new Error(`Network response was not ok: ${res.statusText}`);
+                }
+
+                const data = await res.json();
+                console.log('Fetched data:', data); // Debugging log
+                setFact(data.fact);
+                await AsyncStorage.setItem('fact', data.fact);
+                setArticle(data.article);
+                await AsyncStorage.setItem('article', JSON.stringify(data.article));
+                await AsyncStorage.setItem('last-fetched', new Date().toISOString());
+            } catch (error: any) {
+                console.error('Error fetching details:', error);
+            }
+        };
+
+        const checkAndFetchData = async () => {
+            const lastFetchedString = await AsyncStorage.getItem('last-fetched');
+            const now = new Date();
+            const lastFetched = lastFetchedString ? new Date(lastFetchedString) : new Date(0); // Default to epoch if no date is found
+
+            // Check if 24 hours have passed
+            const diffInHours = (now.getTime() - lastFetched.getTime()) / (1000 * 60 * 60);
+            if (diffInHours > 24) {
+                fetchDetails();
+            } else {
+                // Load from AsyncStorage if data is recent
+                const storedFact = await AsyncStorage.getItem('fact');
+                const storedArticle = await AsyncStorage.getItem('article');
+                setFact(storedFact);
+                setArticle(storedArticle ? JSON.parse(storedArticle) : null);
+            }
+        };
+
+        checkAndFetchData();
+    }, []);
+
     return (
         <AppContext.Provider value={{
-            surprises, setSurprises, modalVisible,
+            modalVisible,
             setModalVisible, modalVisible2, setModalVisible2,
-            alarmString, setAlarmString, fact, setFact, expoPushToken,
+            fact, setFact, expoPushToken,
             notification, token, spotifyObj, setSpotifyObj, user, setUser,
-            isLogged, setIsLogged, status
+            isLogged, setIsLogged, status, article, configure, setConfigure
         }}>
             {children}
         </AppContext.Provider>
     );
 };
 
-// Custom hook to use the AuthContext
 const useApp = () => {
     const context = useContext(AppContext);
     if (context === undefined) {

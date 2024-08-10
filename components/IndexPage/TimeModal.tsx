@@ -6,16 +6,24 @@ import { formatTime } from '@/helpers/formatTime';
 import { Audio } from 'expo-av';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from "expo-haptics"; // for haptic feedback
+import { saveConfig } from '@/utils/save-config';
+import { useAuth } from '@clerk/clerk-expo';
 
 const TimeModal = () => {
-    const { modalVisible, setModalVisible, setAlarmString } = useApp();
+    const { isSignedIn, userId } = useAuth()
+    const { modalVisible, setModalVisible, setConfigure, configure } = useApp();
     return (
         <TimerPickerModal
             visible={modalVisible}
             setIsVisible={setModalVisible}
             onConfirm={(pickedDuration) => {
-                setAlarmString(formatTime(pickedDuration));
                 setModalVisible(false);
+                saveConfig(userId, formatTime(pickedDuration), configure.surprises);
+                setConfigure(prevState => ({
+                    ...prevState,
+                    alarm: formatTime(pickedDuration),
+                }));
+
 
             }}
             hideSeconds
