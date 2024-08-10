@@ -122,45 +122,60 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
         surprises: false
     });
     const { userId } = useAuth();
-
+    const fetchAndUpdate = async () => {
+        try {
+            console.log("userId", userId)
+            const res = await fetch(`${ApiUrl}/configuration/${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            const data = await res.json()
+            console.log("Fetch", data)
+            if (data.alarm === null || data.surprise === null) {
+                setConfigure({
+                    alarm: "19:00:00",
+                    surprises: false
+                })
+            };
+            setConfigure({
+                alarm: data.alarm,
+                surprises: data.surprise
+            });
+            await AsyncStorage.setItem('configure', JSON.stringify(data));
+        }
+        catch (error: any) {
+            console.error('Error fetching details:', error);
+        }
+    }
     useEffect(() => {
-        const fetchConfig = async () => {
-            try {
-                const storedConfig = await AsyncStorage.getItem('configure');
-                if (storedConfig) {
-                    setConfigure(JSON.parse(storedConfig));
-                }
-                else {
-                    const res = await fetch(`${ApiUrl}/configuration`, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            id: userId,
+        const FetchDetails = async () => {
+            if (!userId) return;
+            const oldId = await AsyncStorage.getItem('id');
 
-                        }),
-                    })
-                    const data = await res.json();
-                    console.log('Fetched config:', data); // Debugging log
-                    await AsyncStorage.setItem('configure', JSON.stringify({
-                        alarm: data.alarm,
-                        surprises: data.surprises
-                    }));
-                    setConfigure({
-                        alarm: data.alarm,
-                        surprises: data.surprises
-                    });
+            if (userId) {
+                if (oldId !== userId) {
+                    fetchAndUpdate();
+                    await AsyncStorage.setItem('id', userId);
+
+                } else {
+                    const storedConfigure = await AsyncStorage.getItem('configure');
+                    if (storedConfigure) {
+                        const configureJSON = JSON.parse(storedConfigure);
+                        if (configureJSON.alarm === null || configureJSON.surprise === null) {
+                            fetchAndUpdate();
+                        } else {
+
+                            setConfigure(JSON.parse(storedConfigure));
+                        }
+                    }
                 }
-            } catch (error: any) {
-                console.error('Error fetching config:', error);
             }
-        };
+        }
+        FetchDetails()
 
-        fetchConfig();
-
-    }, []);
-
+    }, [userId]);
     // useEffect(() => {
     //     const saveConfig = async () => {
     //         try {
