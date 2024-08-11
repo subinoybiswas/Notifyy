@@ -216,6 +216,8 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
                 await AsyncStorage.setItem('fact', data.fact);
                 setArticle(data.article);
                 await AsyncStorage.setItem('article', JSON.stringify(data.article));
+                setSpotifyObj(data.spotify);
+                await AsyncStorage.setItem('spotify', JSON.stringify(data.spotify));
                 await AsyncStorage.setItem('last-fetched', new Date().toISOString());
             } catch (error: any) {
                 console.error('Error fetching details:', error);
@@ -235,8 +237,15 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
                 // Load from AsyncStorage if data is recent
                 const storedFact = await AsyncStorage.getItem('fact');
                 const storedArticle = await AsyncStorage.getItem('article');
-                setFact(storedFact);
-                setArticle(storedArticle ? JSON.parse(storedArticle) : null);
+                const storedSpotify = await AsyncStorage.getItem('spotify');
+                if (!storedFact || !storedArticle || !storedSpotify) {
+                    fetchDetails();
+                } else {
+
+                    setFact(storedFact);
+                    setArticle(JSON.parse(storedArticle));
+                    setSpotifyObj(JSON.parse(storedSpotify));
+                }
             }
         };
 
