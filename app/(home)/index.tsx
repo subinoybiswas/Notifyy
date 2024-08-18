@@ -14,7 +14,7 @@ const onboarding = () => {
             >
                 <View className="w-full flex justify-center items-center h-full px-4">
                     <Image
-                        source={require("@/assets/images/icon.png")}
+                        source={require("@/assets/images/bgIcon.png")}
                         className="w-[130px] h-[84px]"
                         resizeMode="contain"
                     />

@@ -87,6 +87,7 @@ android {
     defaultConfig {
         applicationId 'com.anonymous.frnds'
         minSdkVersion rootProject.ext.minSdkVersion
+        multiDexEnabled true
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"

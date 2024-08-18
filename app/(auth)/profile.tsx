@@ -1,7 +1,7 @@
 import { View, Text, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Divider, Tab, TabView } from '@rneui/themed';
+import { Tab, TabView } from '@rneui/themed';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { router } from 'expo-router';
@@ -11,18 +11,45 @@ import { useUser, useAuth } from '@clerk/clerk-expo';
 import { truncate } from '@/helpers/truncate';
 import { calculateUserAge } from '@/helpers/calculateUserAge';
 import { handlePress } from '@/helpers/handlePress';
+import { ApiUrl } from '@/utils/api';
+import {ActivityIndicator} from 'react-native';
+type Notifications = {
+    id: string,
+    title: string,
+    body: string,
+
+}
 const Profile = () => {
     const [index, setIndex] = React.useState(0);
-    const oldNortification = ["hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?", "hello how are you", "hey how are you?"]
+    const [oldNortification, setOldNortification] = React.useState<Notifications[] | null>(null)
     const [rating, setRating] = React.useState(0);
-    const { user } = useUser()
+    const { user } = useUser();
+    const [loading, setLoading] = React.useState(false)
     const { signOut, isSignedIn } = useAuth()
     const handleRating = (rating: number) => {
         setRating(rating);
     };
+
+
+    useEffect(() => {
+        setLoading(true)
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${ApiUrl}/notifications`)
+                const data = await response.json()
+                setOldNortification(data.notifications);
+
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        if (isSignedIn) fetchData();
+        setLoading(false)
+    }, [])
     if (!isSignedIn) {
         router.replace('/onboarding')
     }
+
 
     return (
         <SafeAreaView className="bg-primary h-full ">
@@ -78,14 +105,21 @@ const Profile = () => {
                     <ScrollView contentContainerStyle={{ alignItems: "center" }}>
                         <View className='flex-1 bg-transparent mt-5 flex flex-col gap-2 p-2 w-full justify-center items-center'>
 
-                            {oldNortification.map((item, index) => {
+                            {oldNortification && oldNortification.map((item, index) => {
                                 return (
                                     <View className='flex flex-col gap-2  bg-transparent border-0.5 border-slate-600 rounded-xl w-full p-1 min-h-[100px]' key={index}>
-                                        <Text className='text-white text-lg font-psemibold'>Mere Babu ne khana khaya?</Text>
-                                        <Text className='text-gray-100 text-sm font-pmedium'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium aut repellat, minima laborum doloribus voluptas? Velit possimus nobis repellat impedit ut natus dicta adipisci perspiciatis molestiae repudiandae, mollitia odit incidunt!</Text>
+                                        <Text className='text-white text-lg font-psemibold'>{item.title}</Text>
+                                        <Text className='text-gray-100 text-sm font-pmedium'>{item.body}</Text>
                                     </View>
                                 )
                             })}
+                            {!oldNortification && loading &&
+
+                                (
+                                    <ActivityIndicator size="large" />
+                                )
+                            }
+                            {!oldNortification && <Text className='text-gray-100 text-lg font-psemibold'>No Notifications</Text>}
                         </View>
 
 
