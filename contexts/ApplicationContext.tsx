@@ -176,28 +176,7 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
         FetchDetails()
 
     }, [userId]);
-    // useEffect(() => {
-    //     const saveConfig = async () => {
-    //         try {
-    //             const response = await fetch(`${ApiUrl}/configuration`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify({
-    //                     id: token,
-    //                     alarm: configure.alarm,
-    //                     surprise: configure.surprises,
-    //                 }),
-    //             });
-    //             console.log('Response:', response.status); // Debugging log
-    //             await AsyncStorage.setItem('configure', JSON.stringify(configure));
-    //         } catch (error: any) {
-    //             console.error('Error saving config:', error);
-    //         }
-    //     };
-    //     saveConfig();
-    // }, [configure]);
+
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -229,26 +208,22 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
             const now = new Date();
             const lastFetched = lastFetchedString ? new Date(lastFetchedString) : new Date(0); // Default to epoch if no date is found
 
-            // Check if 24 hours have passed
             const diffInHours = (now.getTime() - lastFetched.getTime()) / (1000 * 60 * 60);
             if (diffInHours > 24) {
                 fetchDetails();
             } else {
-                // Load from AsyncStorage if data is recent
                 const storedFact = await AsyncStorage.getItem('fact');
                 const storedArticle = await AsyncStorage.getItem('article');
                 const storedSpotify = await AsyncStorage.getItem('spotify');
                 if (!storedFact || !storedArticle || !storedSpotify) {
                     fetchDetails();
                 } else {
-
                     setFact(storedFact);
                     setArticle(JSON.parse(storedArticle));
                     setSpotifyObj(JSON.parse(storedSpotify));
                 }
             }
         };
-
         checkAndFetchData();
     }, []);
 

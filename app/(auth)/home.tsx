@@ -17,28 +17,7 @@ export default function App() {
 
   const { isSignedIn, userId } = useAuth()
   const { user } = useUser()
-  const { expoPushToken, notification, token, status } = useApp();
-
-
-  useEffect(() => {
-    fetch("https://2205-223-29-193-8.ngrok-free.app ", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: token,
-        notification: notification,
-        expoPushToken: expoPushToken,
-      }),
-    }).then((response) => {
-      console.log("response", response);
-    });
-    console.log("token", token);
-    console.log("expoPushToken", expoPushToken);
-    console.log("notification", notification);
-  }, [expoPushToken, notification]);
-
+  const {  token, status } = useApp();
 
   useEffect(() => {
     const updateUser = async () => {
@@ -69,26 +48,7 @@ export default function App() {
       updateUser()
     }
   }, [user, token]);
-  // useEffect(() => {
-  //   const apiKey = "f3n2TnzyfYX0+4CJXuahVg==VFkdDXIZ3CLR2Ihz"; // Replace with your actual API key
-  //   const headers = {
-  //     'X-Api-Key': apiKey,
-  //   };
 
-  //   fetch("https://api.api-ninjas.com/v1/facts  ", {
-  //     headers: headers as Record<string, string>,
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data[0].fact);
-  //       setFact(data[0].fact);
-
-  //     })
-  // }, []);
-
-  useEffect(() => { }, [status]);
-
-  console.log(isSignedIn)
 
   return (
     <SafeAreaView className="bg-primary h-full ">
