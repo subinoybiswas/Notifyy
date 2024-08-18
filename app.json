@@ -17,8 +17,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/adaptiveIcon.png",
+        "backgroundColor": "#1e1e2d"
       },
       "package": "com.anonymous.frnds",
       "googleServicesFile": "./google-services.json"
