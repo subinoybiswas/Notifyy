@@ -5,8 +5,7 @@ import { convertToAmPm } from '@/helpers/convertToAMPM';
 import * as Haptics from "expo-haptics"; // for haptic feedback
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '@clerk/clerk-expo';
-import { ApiUrl } from '@/utils/api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { saveConfig } from '@/utils/save-config';
 
 const ConfigureSection = () => {
@@ -17,7 +16,7 @@ const ConfigureSection = () => {
         <View className="flex-row flex gap-x-2 min-h-[150px] mx-2 items-center">
             <TouchableOpacity className="flex-1 rounded-xl bg-[#E2E2B6]/80 h-[100%] flex items-center pt-5" onPress={() => { setModalVisible(true); Haptics.selectionAsync() }}>
                 <Image source={require("@/assets/images/clock.png")} resizeMode="cover" className="h-20 w-20" />
-                <Text className="font-psemibold text-2xl text-white">After {convertToAmPm(configure.alarm)} </Text>
+                <Text className="font-psemibold text-2xl text-white">After {configure.alarm && convertToAmPm(configure.alarm)} </Text>
             </TouchableOpacity>
             <TouchableOpacity className={`${configure.surprises ? "border-green-400/70" : "border-transparent"} p-1 border-2  rounded-xl bg-[#6EACDA]/80 w-[45%] h-[100%] flex items-center pt-5`} onPress={() => {
                 // setSurprises((prev) => { return !prev });

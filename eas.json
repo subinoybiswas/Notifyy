@@ -8,9 +8,17 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "developmentClient": false,
+      "env":{
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY":"pk_test_ZGFybGluZy1wb2xsaXdvZy02MC5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_API_URL":"https://backend-notifyy.sbn.lol"
+      }
     },
-    "production": {}
+    "production": {
+      "distribution": "internal",
+      "developmentClient": false
+    }
   },
   "submit": {
     "production": {}
