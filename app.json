@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptiveIcon.png",
         "backgroundColor": "#1e1e2d"
       },
-      "package": "com.anonymous.frnds",
+      "package": "com.madcat.notifyy",
       "googleServicesFile": "./google-services.json"
     },
     "web": {
