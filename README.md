@@ -2,11 +2,11 @@
 
 Notifyy is a fun and constructive notification app built with React Native Expo. It sends out random, cute, and uplifting notifications to brighten your day. With a user-friendly interface, Notifyy also offers engaging content such as fun facts, music, and featured articles, making it more than just a notification app.
 
-
+<div style="display:flex gap:5px">
 <img src="github/images/notifyyss0.png" style="width: 200px">
 <img src="github/images/notifyyss1.png" style="width: 200px">
 <img src="github/images/notifyyss2.png" style="width: 200px">
-
+</div>
 ## Features
 
 - **Random Notifications**: Receive cute, fun, and constructive messages at random times to keep your spirits up.
